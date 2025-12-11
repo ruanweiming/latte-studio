@@ -401,7 +401,7 @@
                 <button onclick="switchGearSubTab('machines')" class="gear-sub-tab flex-1 py-2 text-xs font-bold uppercase rounded-lg transition-all text-stone-500" data-target="machines">咖啡机</button>
                 <button onclick="switchGearSubTab('grinders')" class="gear-sub-tab flex-1 py-2 text-xs font-bold uppercase rounded-lg transition-all text-stone-500" data-target="grinders">磨豆机</button>
                 <button onclick="switchGearSubTab('tags')" class="gear-sub-tab flex-1 py-2 text-xs font-bold uppercase rounded-lg transition-all text-stone-500" data-target="tags">标签</button>
-                <button onclick="switchGearSubTab('backup')" class="gear-sub-tab flex-1 py-2 text-xs font-bold uppercase rounded-lg transition-all text-stone-500" data-target="backup">备份</button>
+                <button onclick="switchGearSubTab('backup')" class="gear-sub-tab flex-1 py-2 text-xs font-bold uppercase rounded-lg transition-all text-stone-500" data-target="backup">设置</button>
             </div>
 
             <!-- 添加按钮 -->
@@ -433,7 +433,10 @@
                 <button onclick="batchOptimizeImages()" class="w-full mt-3 flex items-center justify-center gap-2 bg-stone-800 border border-stone-700 hover:bg-stone-700 text-amber-500 py-3 rounded-lg text-xs font-medium active:scale-95 transition-transform">
                     <i data-lucide="shrink" class="w-3"></i> 优化旧图片 (批量瘦身)
                 </button>
-                <h3 class="text-xs font-bold text-stone-500 uppercase mb-3 flex items-center gap-1"><i data-lucide="hard-drive" class="w-3"></i> 数据备份</h3>
+                <button onclick="showRoastPeriodsConfig()" class="w-full mt-3 flex items-center justify-center gap-2 bg-stone-800 border border-stone-700 hover:bg-stone-700 text-amber-500 py-3 rounded-lg text-xs font-medium active:scale-95 transition-transform">
+                    <i data-lucide="settings" class="w-3"></i> 赏味周期配置
+                </button>
+                <h3 class="text-xs font-bold text-stone-500 uppercase mb-3 flex items-center gap-1 mt-6"><i data-lucide="hard-drive" class="w-3"></i> 数据备份</h3>
                 
                 <!-- 存储空间使用情况 -->
                 <div id="storage-info" class="mb-4 p-3 bg-stone-800/50 rounded-lg border border-stone-700">
@@ -618,58 +621,82 @@
                     
                     <div class="flex-1 space-y-3 min-w-0">
                         <div>
-                            <label class="text-[10px] font-bold text-stone-500 uppercase mb-1 block">名称</label>
-                            <input id="new-asset-name" class="block w-full appearance-none bg-[#0a0a0a] border border-stone-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-600 min-w-0 box-border">
+                            <label class="text-xs font-bold text-stone-400 uppercase mb-1 block">名称</label>
+                            <input id="new-asset-name" class="block w-full appearance-none bg-[#0a0a0a] border border-stone-800 rounded-lg px-3 py-2 text-base text-white focus:outline-none focus:border-amber-600 min-w-0 box-border">
                         </div>
-                        <select id="new-asset-roast" class="block w-full appearance-none bg-[#0a0a0a] border border-stone-800 rounded-lg px-3 py-2 text-xs text-stone-300 focus:outline-none hidden min-w-0 box-border">
+                        <select id="new-asset-roast" class="block w-full appearance-none bg-[#0a0a0a] border border-stone-800 rounded-lg px-3 py-2 text-sm text-stone-200 focus:outline-none hidden min-w-0 box-border">
                             <option>浅烘</option><option>中浅</option><option selected>中烘</option><option>中深</option><option>深烘</option>
                         </select>
                     </div>
                 </div>
 
                 <div id="roast-date-field" class="hidden w-full">
-                    <label class="text-[10px] font-bold text-stone-500 uppercase mb-1 block">烘焙日期</label>
+                    <label class="text-xs font-bold text-stone-400 uppercase mb-1 block">烘焙日期</label>
                     <div class="relative w-full">
-                        <input id="new-asset-roast-date" type="date" class="block w-full appearance-none bg-[#0a0a0a] border border-stone-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-600 min-w-0 box-border" style="color-scheme: dark;">
+                        <input id="new-asset-roast-date" type="date" class="block w-full appearance-none bg-[#0a0a0a] border border-stone-800 rounded-lg px-3 py-2 text-base text-white focus:outline-none focus:border-amber-600 min-w-0 box-border" style="color-scheme: dark;">
                     </div>
                 </div>
 
                 <div id="recommended-params-field" class="hidden space-y-2 w-full">
-                    <label class="text-[10px] font-bold text-stone-500 uppercase mb-1 block">推荐参数</label>
+                    <label class="text-xs font-bold text-stone-400 uppercase mb-1 block">推荐参数</label>
                     <div class="grid grid-cols-2 gap-3 w-full">
                         <div class="min-w-0 w-full">
-                            <label class="text-[9px] text-stone-600 mb-0.5 block truncate">推荐粉量 (g)</label>
-                            <input id="new-asset-recommended-dose" type="number" inputmode="decimal" step="0.1" min="0" placeholder="18.0" class="block w-full appearance-none bg-[#0a0a0a] border border-stone-800 rounded-lg px-2 py-2 text-xs text-white focus:outline-none focus:border-amber-600 min-w-0 box-border">
+                            <label class="text-[11px] text-stone-400 mb-0.5 block truncate">推荐粉量 (g)</label>
+                            <input id="new-asset-recommended-dose" type="number" inputmode="decimal" step="0.1" min="0" placeholder="18.0" class="block w-full appearance-none bg-[#0a0a0a] border border-stone-800 rounded-lg px-2 py-2 text-sm text-white focus:outline-none focus:border-amber-600 min-w-0 box-border">
                         </div>
                         <div class="min-w-0 w-full">
-                            <label class="text-[9px] text-stone-600 mb-0.5 block truncate">推荐水温 (°C)</label>
-                            <input id="new-asset-recommended-temp" type="number" inputmode="numeric" step="1" min="0" placeholder="93" class="block w-full appearance-none bg-[#0a0a0a] border border-stone-800 rounded-lg px-2 py-2 text-xs text-white focus:outline-none focus:border-amber-600 min-w-0 box-border">
+                            <label class="text-[11px] text-stone-400 mb-0.5 block truncate">推荐水温 (°C)</label>
+                            <input id="new-asset-recommended-temp" type="number" inputmode="numeric" step="1" min="0" placeholder="93" class="block w-full appearance-none bg-[#0a0a0a] border border-stone-800 rounded-lg px-2 py-2 text-sm text-white focus:outline-none focus:border-amber-600 min-w-0 box-border">
                         </div>
                         <div class="min-w-0 w-full">
-                            <label class="text-[9px] text-stone-600 mb-0.5 block truncate">推荐时间 (s)</label>
-                            <input id="new-asset-recommended-time" type="number" inputmode="numeric" step="1" min="0" placeholder="25" class="block w-full appearance-none bg-[#0a0a0a] border border-stone-800 rounded-lg px-2 py-2 text-xs text-white focus:outline-none focus:border-amber-600 min-w-0 box-border">
+                            <label class="text-[11px] text-stone-400 mb-0.5 block truncate">推荐时间 (s)</label>
+                            <input id="new-asset-recommended-time" type="number" inputmode="numeric" step="1" min="0" placeholder="25" class="block w-full appearance-none bg-[#0a0a0a] border border-stone-800 rounded-lg px-2 py-2 text-sm text-white focus:outline-none focus:border-amber-600 min-w-0 box-border">
                         </div>
                         <div class="min-w-0 w-full">
-                            <label class="text-[9px] text-stone-600 mb-0.5 block truncate">推荐液重 (g)</label>
-                            <input id="new-asset-recommended-yield" type="number" inputmode="decimal" step="0.1" min="0" placeholder="36.0" class="block w-full appearance-none bg-[#0a0a0a] border border-stone-800 rounded-lg px-2 py-2 text-xs text-white focus:outline-none focus:border-amber-600 min-w-0 box-border">
+                            <label class="text-[11px] text-stone-400 mb-0.5 block truncate">推荐液重 (g)</label>
+                            <input id="new-asset-recommended-yield" type="number" inputmode="decimal" step="0.1" min="0" placeholder="36.0" class="block w-full appearance-none bg-[#0a0a0a] border border-stone-800 rounded-lg px-2 py-2 text-sm text-white focus:outline-none focus:border-amber-600 min-w-0 box-border">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 自定义赏味周期（仅咖啡豆，默认折叠） -->
+                <div id="bean-custom-periods-field" class="hidden w-full">
+                    <div class="w-full flex items-center justify-between px-3 py-2 bg-stone-800/60 border border-stone-700 rounded-lg">
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm font-semibold text-stone-100">自定义赏味周期</span>
+                            <span id="bean-custom-indicator" class="text-[11px] font-semibold px-2 py-0.5 rounded-full border border-amber-500/50 text-amber-300 bg-amber-500/10">未启用</span>
+                        </div>
+                        <label class="flex items-center gap-2 text-stone-300 text-sm select-none cursor-pointer">
+                            <span class="text-[12px]">开关</span>
+                            <div class="relative inline-block w-10 h-5">
+                                <input id="bean-custom-toggle" type="checkbox" class="sr-only peer">
+                                <div class="absolute inset-0 w-10 h-5 bg-stone-700 rounded-full transition-colors duration-200 peer-checked:bg-emerald-500"></div>
+                                <div class="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full transition-transform duration-200 shadow-sm peer-checked:translate-x-5"></div>
+                            </div>
+                        </label>
+                    </div>
+                    <div id="bean-custom-periods-content" class="hidden mt-2 space-y-3 p-3 bg-stone-800/30 border border-stone-700 rounded-lg">
+                        <p class="text-[12px] text-stone-400 mb-3 leading-relaxed">开启后为该豆子设置独立赏味周期，关闭则使用全局配置</p>
+                        <div id="bean-custom-periods-inputs" class="space-y-3">
+                            <!-- 内容将通过 JavaScript 动态生成 -->
                         </div>
                     </div>
                 </div>
 
                 <div id="asset-extra-fields" class="grid grid-cols-2 gap-3 hidden w-full">
                     <div class="min-w-0 w-full">
-                        <label id="asset-total-label" class="text-[10px] font-bold text-stone-500 uppercase mb-1 block">总量 (g)</label>
-                        <input id="new-asset-total" type="number" inputmode="decimal" step="0.1" min="0" class="block w-full appearance-none bg-[#0a0a0a] border border-stone-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-600 min-w-0 box-border">
+                        <label id="asset-total-label" class="text-xs font-bold text-stone-400 uppercase mb-1 block">总量 (g)</label>
+                        <input id="new-asset-total" type="number" inputmode="decimal" step="0.1" min="0" class="block w-full appearance-none bg-[#0a0a0a] border border-stone-800 rounded-lg px-3 py-2 text-base text-white focus:outline-none focus:border-amber-600 min-w-0 box-border">
                     </div>
                     <div class="min-w-0 w-full">
-                        <label id="asset-price-label" class="text-[10px] font-bold text-stone-500 uppercase mb-1 block">价格 (¥)</label>
-                        <input id="new-asset-price" type="number" inputmode="decimal" step="0.01" min="0" class="block w-full appearance-none bg-[#0a0a0a] border border-stone-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-600 min-w-0 box-border">
+                        <label id="asset-price-label" class="text-xs font-bold text-stone-400 uppercase mb-1 block">价格 (¥)</label>
+                        <input id="new-asset-price" type="number" inputmode="decimal" step="0.01" min="0" class="block w-full appearance-none bg-[#0a0a0a] border border-stone-800 rounded-lg px-3 py-2 text-base text-white focus:outline-none focus:border-amber-600 min-w-0 box-border">
                     </div>
                 </div>
                 
                 <div>
-                    <label class="text-[10px] font-bold text-stone-500 uppercase mb-1 block">备注</label>
-                    <textarea id="new-asset-notes" class="block w-full appearance-none bg-[#0a0a0a] border border-stone-800 rounded-lg px-3 py-2 text-sm text-stone-300 focus:outline-none focus:border-amber-600 resize-none min-h-[60px] min-w-0 box-border"></textarea>
+                    <label class="text-xs font-bold text-stone-400 uppercase mb-1 block">备注</label>
+                    <textarea id="new-asset-notes" class="block w-full appearance-none bg-[#0a0a0a] border border-stone-800 rounded-lg px-3 py-2 text-base text-stone-200 focus:outline-none focus:border-amber-600 resize-none min-h-[72px] min-w-0 box-border"></textarea>
                 </div>
                 
                 <div class="flex gap-3 pt-2">
@@ -700,6 +727,24 @@
             </div>
         </div>
     </div>
+
+    <!-- 赏味周期配置弹窗 -->
+    <div id="roast-periods-config-modal" class="fixed inset-0 z-50 hidden wheel-overlay-backdrop flex items-center justify-center px-4" onclick="if(event.target===this) hideRoastPeriodsConfig()">
+        <div class="bg-stone-900 border border-stone-800 rounded-2xl shadow-xl p-5 w-full max-w-md mx-auto box-border max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-sm font-bold text-stone-200 flex items-center gap-1">
+                    <i data-lucide="settings" class="w-4"></i> 赏味周期配置
+                </h3>
+                <button onclick="hideRoastPeriodsConfig()" class="text-stone-500 hover:text-stone-300 p-1">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+            <div id="roast-periods-config-content" class="space-y-4">
+                <!-- 内容将通过 JavaScript 动态生成 -->
+            </div>
+        </div>
+    </div>
+
     <!-- 咖啡豆详情弹窗 -->
     <div id="bean-detail-modal" class="fixed inset-0 z-50 hidden wheel-overlay-backdrop flex items-center justify-center px-4" onclick="if(event.target===this) hideBeanDetailModal()">
         <div class="bg-stone-900 border border-stone-800 rounded-2xl shadow-xl p-5 w-full max-w-sm mx-auto box-border max-h-[85vh] overflow-y-auto" onclick="event.stopPropagation()">
@@ -772,7 +817,8 @@
             milks: JSON.parse(localStorage.getItem('el_milks') || '[]'),
             customTags: JSON.parse(localStorage.getItem('el_custom_tags') || '[]'),
             deletedDefaultTags: JSON.parse(localStorage.getItem('el_deleted_default_tags') || '[]'),
-            prefs: JSON.parse(localStorage.getItem('el_prefs') || '{}')
+            prefs: JSON.parse(localStorage.getItem('el_prefs') || '{}'),
+            customRoastPeriods: JSON.parse(localStorage.getItem('el_custom_roast_periods') || 'null')
         };
 
         /**
@@ -906,7 +952,6 @@
             const used = logsTotal + adjustment;
             
             const remaining = Math.max(0, total - used);
-            
             return {
                 used: Number(used.toFixed(1)),
                 remaining: Number(remaining.toFixed(1)),
@@ -955,21 +1000,72 @@
          * 赏味周期配置数据
          * @type {Object}
          */
-         const ROAST_PERIODS = {
-            '浅烘': {养豆期: [0, 21], 最佳赏味期: [21, 60], 赏味期: [21, 90], 赏味衰退期: [90, Infinity]},
-            '中浅': {养豆期: [0, 14], 最佳赏味期: [14, 50], 赏味期: [14, 75], 赏味衰退期: [75, Infinity]},
-            '中烘': {养豆期: [0, 10], 最佳赏味期: [10, 40], 赏味期: [10, 60], 赏味衰退期: [60, Infinity]},
-            '中深': {养豆期: [0, 7], 最佳赏味期: [7, 30], 赏味期: [7, 40], 赏味衰退期: [40, Infinity]},
-            '深烘': {养豆期: [0, 6], 最佳赏味期: [6, 25], 赏味期: [6, 30], 赏味衰退期: [30, Infinity]}
+        const ROAST_PERIODS = {
+            '浅烘': {养豆期: [0, 14], 最佳赏味期: [14, 60], 赏味期: [14, 75], 赏味衰退期: [75, Infinity]},
+            '中浅': {养豆期: [0, 10], 最佳赏味期: [10, 45], 赏味期: [10, 60], 赏味衰退期: [60, Infinity]},
+            '中烘': {养豆期: [0, 7], 最佳赏味期: [7, 40], 赏味期: [7, 45], 赏味衰退期: [45, Infinity]},
+            '中深': {养豆期: [0, 5], 最佳赏味期: [5, 20], 赏味期: [5, 35], 赏味衰退期: [35, Infinity]},
+            '深烘': {养豆期: [0, 4], 最佳赏味期: [3, 14], 赏味期: [4, 21], 赏味衰退期: [21, Infinity]}
         };
+
+        /**
+         * 安全读取数字输入，空值或无效值时回退到默认
+         * @param {string} inputId - 输入框ID
+         * @param {number} fallback - 回退值
+         * @returns {number} 解析后的数值
+         */
+        function getInputNumberOrFallback(inputId, fallback) {
+            const input = document.getElementById(inputId);
+            if (!input) return fallback;
+            const raw = input.value.trim();
+            if (raw === '') return fallback;
+            const num = parseFloat(raw);
+            return Number.isFinite(num) ? num : fallback;
+        }
+
+        /**
+         * 获取赏味周期参数（优先使用豆子特定配置，然后是全局自定义，最后是默认）
+         * @param {string|null} beanId - 咖啡豆ID，如果提供则优先使用该豆子的特定配置
+         * @returns {Object} 赏味周期配置对象
+         */
+        function getRoastPeriods(beanId = null) {
+            let basePeriods = ROAST_PERIODS;
+            
+            // 1. 如果有全局自定义配置，先合并
+            if (DB.customRoastPeriods && typeof DB.customRoastPeriods === 'object') {
+                basePeriods = { ...ROAST_PERIODS };
+                Object.keys(DB.customRoastPeriods).forEach(key => {
+                    if (ROAST_PERIODS[key]) {
+                        basePeriods[key] = { ...ROAST_PERIODS[key], ...DB.customRoastPeriods[key] };
+                    }
+                });
+            }
+            
+            // 2. 如果有豆子ID，优先使用豆子特定的配置
+            if (beanId) {
+                const bean = DB.beans.find(b => b.id === beanId);
+                if (bean && bean.customRoastPeriods && typeof bean.customRoastPeriods === 'object') {
+                    const beanPeriods = { ...basePeriods };
+                    // 只覆盖该豆子烘焙度的配置
+                    const roastKey = bean.roast;
+                    if (roastKey && basePeriods[roastKey]) {
+                        beanPeriods[roastKey] = { ...basePeriods[roastKey], ...bean.customRoastPeriods };
+                    }
+                    return beanPeriods;
+                }
+            }
+            
+            return basePeriods;
+        }
 
         /**
          * 根据烘焙度和天数获取赏味阶段信息
          * @param {string} roast - 烘焙度
          * @param {number|null} days - 烘焙后天数
+         * @param {string|null} beanId - 咖啡豆ID，用于获取豆子特定的配置
          * @returns {{stage: string, text: string, color: string}|null} 阶段信息
          */
-        function getRoastStage(roast, days) {
+        function getRoastStage(roast, days, beanId = null) {
             if (!roast || days === null || days === undefined) return null;
             
             // 标准化烘焙度名称
@@ -979,9 +1075,10 @@
                            roast.includes('深') ? '深烘' :
                            roast.includes('中') ? '中烘' : null;
             
-            if (!roastKey || !ROAST_PERIODS[roastKey]) return null;
+            const periodsMap = getRoastPeriods(beanId);
+            if (!roastKey || !periodsMap[roastKey]) return null;
             
-            const periods = ROAST_PERIODS[roastKey];
+            const periods = periodsMap[roastKey];
             
             // 判断当前处于哪个阶段（按优先级：养豆期 > 最佳赏味期 > 赏味衰退期 > 赏味期）
             if (days >= periods.养豆期[0] && days < periods.养豆期[1]) {
@@ -1001,9 +1098,10 @@
          * 计算豆子生命周期进度
          * @param {string} roast - 烘焙度
          * @param {number|null} days - 烘焙后天数
+         * @param {string|null} beanId - 咖啡豆ID，用于获取豆子特定的配置
          * @returns {{progress: number, currentStage: string, color: string, maxDays: number, currentStageDays: number, nextStageDays: number, currentStageEnd: number, nextStageName: string}|null} 进度信息
          */
-        function getLifecycleProgress(roast, days) {
+        function getLifecycleProgress(roast, days, beanId = null) {
             if (!roast || days === null || days === undefined) return null;
             
             // 标准化烘焙度名称
@@ -1013,10 +1111,11 @@
                            roast.includes('深') ? '深烘' :
                            roast.includes('中') ? '中烘' : null;
             
-            if (!roastKey || !ROAST_PERIODS[roastKey]) return null;
+            const periodsMap = getRoastPeriods(beanId);
+            if (!roastKey || !periodsMap[roastKey]) return null;
             
-            const periods = ROAST_PERIODS[roastKey];
-            const stageInfo = getRoastStage(roast, days);
+            const periods = periodsMap[roastKey];
+            const stageInfo = getRoastStage(roast, days, beanId);
             
             // 计算最大天数（赏味衰退期的开始）
             const maxDays = periods.赏味衰退期[0];
@@ -1223,6 +1322,11 @@
                 localStorage.setItem('el_custom_tags', JSON.stringify(DB.customTags));
                 localStorage.setItem('el_deleted_default_tags', JSON.stringify(DB.deletedDefaultTags));
                 localStorage.setItem('el_prefs', JSON.stringify(DB.prefs));
+                if (DB.customRoastPeriods !== null) {
+                    localStorage.setItem('el_custom_roast_periods', JSON.stringify(DB.customRoastPeriods));
+                } else {
+                    localStorage.removeItem('el_custom_roast_periods');
+                }
                 
                 // 保存后更新存储空间显示（如果在备份页面）
                 if (STATE.currentGearTab === 'backup') {
@@ -1886,7 +1990,7 @@
 
                 const stageBadge = document.getElementById('hero-stage-badge');
                 const roastDays = getRoastDays(bean.roastDate, new Date());
-                const stageInfo = getRoastStage(bean.roast, roastDays);
+                const stageInfo = getRoastStage(bean.roast, roastDays, bean.id);
                 
                 if (stageInfo && roastDays !== null && stageBadge) {
                     stageBadge.innerText = stageInfo.text;
@@ -2460,7 +2564,7 @@
                 const currentBean = log.beanId ? DB.beans.find(b => b.id === log.beanId) : null;
                 const displayImage = log.image || currentBean?.image;
                 const roastDays = currentBean ? getRoastDays(currentBean.roastDate, log.date) : null;
-                const stageInfo = getRoastStage(log.beanRoast, roastDays);
+                const stageInfo = getRoastStage(log.beanRoast, roastDays, log.beanId || null);
                 
                 // === 修改核心：背景色始终由烘焙度决定，不受赏味期影响 ===
                 const roastColor = getRoastColor(log.beanRoast); 
@@ -3071,7 +3175,7 @@
             const currentBean = log.beanId ? DB.beans.find(b => b.id === log.beanId) : null;
             const displayImage = log.image || currentBean?.image;
             const roastDays = currentBean ? getRoastDays(currentBean.roastDate, log.date) : null;
-            const stageInfo = getRoastStage(log.beanRoast, roastDays);
+            const stageInfo = getRoastStage(log.beanRoast, roastDays, log.beanId || null);
             const roastColor = getRoastColor(log.beanRoast);
 
             const costInfo = (() => {
@@ -3669,10 +3773,254 @@
             if (roastSelect) roastSelect.value = '中烘'; // 重置为默认值
             STATE.newAssetImage = null;
             
+            // 重置自定义周期字段
+            const customPeriodsContent = document.getElementById('bean-custom-periods-content');
+            if (customPeriodsContent) {
+                customPeriodsContent.classList.add('hidden');
+                const chevron = document.getElementById('bean-custom-periods-chevron');
+                if (chevron) chevron.style.transform = 'rotate(0deg)';
+            }
+            
             const titleEl = document.getElementById('asset-form-title');
             const btnEl = document.getElementById('asset-submit-btn');
             if (titleEl) titleEl.innerHTML = '<i data-lucide="plus-circle" class="w-4"></i> 添加新项目';
             if (btnEl) btnEl.textContent = '确认添加';
+        }
+
+        /**
+         * 从表单获取豆子自定义赏味周期配置
+         * @returns {Object|null} 自定义周期配置对象，如果没有配置则返回 null
+         */
+        function getBeanCustomPeriodsFromForm() {
+            const toggle = document.getElementById('bean-custom-toggle');
+            if (toggle && !toggle.checked) {
+                return null;
+            }
+
+            const roastSelect = document.getElementById('new-asset-roast');
+            const roastType = roastSelect ? roastSelect.value : '中烘';
+            const basePeriod = getRoastPeriods()?.[roastType] || ROAST_PERIODS[roastType];
+            if (!basePeriod) return null;
+
+            const agingEnd = getInputNumberOrFallback('bean-custom-养豆期-end', basePeriod.养豆期[1]);
+            const declineStart = getInputNumberOrFallback('bean-custom-赏味衰退期-start', basePeriod.赏味衰退期[0]);
+            const bestStart = getInputNumberOrFallback('bean-custom-最佳赏味期-start', basePeriod.最佳赏味期[0]);
+            const bestEnd = getInputNumberOrFallback('bean-custom-最佳赏味期-end', basePeriod.最佳赏味期[1]);
+
+            const computed = {
+                养豆期: [0, agingEnd],
+                最佳赏味期: [bestStart, bestEnd],
+                赏味期: [agingEnd, declineStart],
+                赏味衰退期: [declineStart, Infinity]
+            };
+
+            const hasChanges = ['养豆期', '最佳赏味期', '赏味期', '赏味衰退期'].some(stage => {
+                const base = basePeriod[stage] || [];
+                const cur = computed[stage] || [];
+                return base[0] !== cur[0] || base[1] !== cur[1];
+            });
+
+            return hasChanges ? computed : null;
+        }
+
+        /**
+         * 更新豆子自定义赏味期启用指示
+         * @param {boolean} active
+         */
+        function updateBeanCustomIndicator(active) {
+            const indicator = document.getElementById('bean-custom-indicator');
+            if (!indicator) return;
+            if (active) {
+                indicator.textContent = '已启用';
+                indicator.className = 'text-[11px] font-semibold px-2 py-0.5 rounded-full border border-emerald-400/60 text-emerald-200 bg-emerald-500/15';
+            } else {
+                indicator.textContent = '未启用';
+                indicator.className = 'text-[11px] font-semibold px-2 py-0.5 rounded-full border border-amber-500/50 text-amber-300 bg-amber-500/10';
+            }
+        }
+
+        /**
+         * 设置豆子自定义赏味期开关状态并控制显示
+         * @param {boolean} enabled
+         */
+        function setBeanCustomEnabled(enabled) {
+            const toggle = document.getElementById('bean-custom-toggle');
+            const content = document.getElementById('bean-custom-periods-content');
+            if (toggle) toggle.checked = !!enabled;
+            if (content) {
+                if (enabled) {
+                    content.classList.remove('hidden');
+                } else {
+                    content.classList.add('hidden');
+                }
+            }
+            updateBeanCustomIndicator(!!enabled);
+        }
+
+        /**
+         * 切换豆子自定义赏味周期展开/折叠
+         * @returns {void}
+         */
+        function toggleBeanCustomPeriods() {
+            const toggle = document.getElementById('bean-custom-toggle');
+            if (toggle) {
+                setBeanCustomEnabled(!toggle.checked);
+            }
+        }
+
+        /**
+         * 渲染豆子自定义赏味周期输入框
+         * @returns {void}
+         */
+        function renderBeanCustomPeriodsInputs() {
+            const container = document.getElementById('bean-custom-periods-inputs');
+            if (!container) return;
+
+            const roastSelect = document.getElementById('new-asset-roast');
+            const currentRoast = roastSelect ? roastSelect.value : '中烘';
+            const periods = getRoastPeriods();
+            const currentPeriod = periods[currentRoast] || periods['中烘'];
+            const agingEndVal = currentPeriod.养豆期?.[1] ?? '';
+            const bestStartVal = currentPeriod.最佳赏味期?.[0] ?? '';
+            const bestEndVal = currentPeriod.最佳赏味期?.[1] ?? '';
+            const declineStartVal = currentPeriod.赏味衰退期?.[0] ?? '';
+            const tasteStartVal = currentPeriod.养豆期?.[1] ?? '';
+            const tasteEndVal = currentPeriod.赏味衰退期?.[0] ?? '';
+
+            let html = `
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-[11px] text-stone-400 mb-0.5 block truncate">养豆时间 (天)</label>
+                        <input 
+                            type="number" 
+                            id="bean-custom-养豆期-end" 
+                            value="${agingEndVal === Infinity ? '' : agingEndVal}" 
+                            min="0" 
+                            step="1"
+                            class="w-full bg-[#0a0a0a] border border-stone-800 rounded-lg px-2 py-2 text-sm text-white focus:outline-none focus:border-amber-600 min-w-0 box-border"
+                            placeholder="结束天数"
+                        >
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3 mt-3">
+                    <div>
+                        <label class="text-[11px] text-stone-400 mb-0.5 block truncate">最佳赏味期开始</label>
+                        <input 
+                            type="number" 
+                            id="bean-custom-最佳赏味期-start" 
+                            value="${bestStartVal === Infinity ? '' : bestStartVal}" 
+                            min="0" 
+                            step="1"
+                            class="w-full bg-[#0a0a0a] border border-stone-800 rounded-lg px-2 py-2 text-sm text-white focus:outline-none focus:border-amber-600 min-w-0 box-border"
+                            placeholder="开始天数"
+                        >
+                    </div>
+                    <div>
+                        <label class="text-[11px] text-stone-400 mb-0.5 block truncate">最佳赏味期结束</label>
+                        <input 
+                            type="number" 
+                            id="bean-custom-最佳赏味期-end" 
+                            value="${bestEndVal === Infinity ? '' : bestEndVal}" 
+                            min="0" 
+                            step="1"
+                            class="w-full bg-[#0a0a0a] border border-stone-800 rounded-lg px-2 py-2 text-sm text-white focus:outline-none focus:border-amber-600 min-w-0 box-border"
+                            placeholder="结束天数"
+                        >
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3 mt-3">
+                    <div>
+                        <label class="text-[11px] text-amber-500/80 mb-0.5 block truncate">赏味期开始 (自动)</label>
+                        <div class="w-full text-[13px] text-amber-100 px-3 py-2 bg-stone-900/70 border border-stone-800 rounded-lg font-semibold" id="bean-custom-赏味期-start-text">${tasteStartVal}</div>
+                    </div>
+                    <div>
+                        <label class="text-[11px] text-amber-500/80 mb-0.5 block truncate">赏味期结束 (自动)</label>
+                        <div class="w-full text-[13px] text-amber-100 px-3 py-2 bg-stone-900/70 border border-stone-800 rounded-lg font-semibold" id="bean-custom-赏味期-end-text">${tasteEndVal}</div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3 mt-3">
+                    <div>
+                        <label class="text-[11px] text-stone-400 mb-0.5 block truncate">赏味衰退期开始</label>
+                        <input 
+                            type="number" 
+                            id="bean-custom-赏味衰退期-start" 
+                            value="${declineStartVal === Infinity ? '' : declineStartVal}" 
+                            min="0" 
+                            step="1"
+                            class="w-full bg-[#0a0a0a] border border-stone-800 rounded-lg px-2 py-2 text-sm text-white focus:outline-none focus:border-amber-600 min-w-0 box-border"
+                            placeholder="开始天数"
+                        >
+                    </div>
+                </div>`;
+
+            container.innerHTML = html;
+
+            // 监听烘焙度变化，更新占位符
+            if (roastSelect) {
+                roastSelect.addEventListener('change', function() {
+                    renderBeanCustomPeriodsInputs();
+                });
+            }
+
+            attachBeanPeriodAutoFill();
+
+            // 初始化开关/指示
+            const toggle = document.getElementById('bean-custom-toggle');
+            if (toggle) {
+                toggle.addEventListener('change', () => setBeanCustomEnabled(toggle.checked));
+            }
+            setBeanCustomEnabled(false);
+
+            // 输入变化时更新指示
+            const inputs = ['bean-custom-养豆期-end','bean-custom-最佳赏味期-start','bean-custom-最佳赏味期-end','bean-custom-赏味衰退期-start']
+                .map(id => document.getElementById(id))
+                .filter(Boolean);
+            const syncIndicator = () => {
+                const custom = getBeanCustomPeriodsFromForm();
+                updateBeanCustomIndicator(!!custom);
+            };
+            inputs.forEach(inp => inp.addEventListener('input', syncIndicator));
+            syncIndicator();
+        }
+
+        /**
+         * 绑定豆子表单赏味期字段的自动衔接
+         * 规则与全局配置一致
+         * @returns {void}
+         */
+        function attachBeanPeriodAutoFill() {
+            const agingStart = document.getElementById('bean-custom-养豆期-start');
+            const agingEnd = document.getElementById('bean-custom-养豆期-end');
+            const tasteStart = document.getElementById('bean-custom-赏味期-start');
+            const tasteEnd = document.getElementById('bean-custom-赏味期-end');
+            const tasteStartText = document.getElementById('bean-custom-赏味期-start-text');
+            const tasteEndText = document.getElementById('bean-custom-赏味期-end-text');
+            const declineStart = document.getElementById('bean-custom-赏味衰退期-start');
+            const declineEnd = document.getElementById('bean-custom-赏味衰退期-end');
+
+            const sync = () => {
+                if (agingStart) agingStart.value = 0;
+                if (declineEnd) declineEnd.value = '';
+
+                const agingEndVal = agingEnd ? parseFloat(agingEnd.value) : NaN;
+                const declineStartVal = declineStart ? parseFloat(declineStart.value) : NaN;
+
+                if (tasteStart) tasteStart.value = Number.isFinite(agingEndVal) ? agingEndVal : '';
+                if (tasteEnd) tasteEnd.value = Number.isFinite(declineStartVal) ? declineStartVal : '';
+                if (tasteStartText) tasteStartText.textContent = Number.isFinite(agingEndVal) ? agingEndVal : '—';
+                if (tasteEndText) tasteEndText.textContent = Number.isFinite(declineStartVal) ? declineStartVal : '—';
+
+                // 根据实际输入更新启用指示
+                const indicatorActive = !!getBeanCustomPeriodsFromForm();
+                updateBeanCustomIndicator(indicatorActive);
+            };
+
+            if (agingEnd) agingEnd.addEventListener('input', sync);
+            if (declineStart) declineStart.addEventListener('input', sync);
+            const toggle = document.getElementById('bean-custom-toggle');
+            if (toggle) toggle.addEventListener('change', sync);
+
+            sync();
         }
 
         /**
@@ -3706,6 +4054,15 @@
             // 推荐参数：仅咖啡豆显示
             if (recommendedParamsField) recommendedParamsField.style.display = type === 'beans' ? 'block' : 'none';
             
+            // 自定义赏味周期：仅咖啡豆显示
+            const beanCustomPeriodsField = document.getElementById('bean-custom-periods-field');
+            if (beanCustomPeriodsField) {
+                beanCustomPeriodsField.style.display = type === 'beans' ? 'block' : 'none';
+                if (type === 'beans') {
+                    renderBeanCustomPeriodsInputs();
+                }
+            }
+            
             if (extraEl && totalLabel && priceLabel) {
                 if (type === 'beans' || type === 'milks') {
                     extraEl.classList.remove('hidden');
@@ -3732,6 +4089,11 @@
             resetAssetForm();
         }
 
+        /**
+         * 显示调整剩余豆量弹窗
+         * @param {string} beanId - 豆子ID
+         * @returns {void}
+         */
         function showAdjustBeanWeightModal(beanId) {
             const bean = DB.beans.find(b => b.id === beanId);
             if (!bean) return;
@@ -3751,6 +4113,7 @@
             modal.classList.remove('hidden');
             document.body.classList.add('overflow-hidden');
         }
+
         /**
          * 隐藏调整剩余豆量弹窗
          * @returns {void}
@@ -3762,6 +4125,10 @@
             STATE.adjustingBeanId = null;
         }
 
+        /**
+         * 确认调整剩余豆量
+         * @returns {void}
+         */
         function confirmAdjustBeanWeight() {
             if (!STATE.adjustingBeanId) return;
             
@@ -3828,7 +4195,7 @@
             
             const remain = getBeanRemaining(bean);
             const roastDays = getRoastDays(bean.roastDate, new Date());
-            const stageInfo = getRoastStage(bean.roast, roastDays);
+            const stageInfo = getRoastStage(bean.roast, roastDays, bean.id);
             const priceText = formatCurrency(bean.price);
             const unitCost = bean.totalWeight > 0 && bean.price > 0 ? getUnitCost(bean.totalWeight, bean.price) : null;
             
@@ -4016,6 +4383,13 @@
                         } else {
                             delete target.recommendedTemp;
                         }
+                        // 保存自定义赏味周期配置
+                        const customPeriods = getBeanCustomPeriodsFromForm();
+                        if (customPeriods && Object.keys(customPeriods).length > 0) {
+                            target.customRoastPeriods = customPeriods;
+                        } else {
+                            delete target.customRoastPeriods;
+                        }
                     }
                     if (type === 'beans' || type === 'milks') {
                         target.totalWeight = totalWeight;
@@ -4044,6 +4418,11 @@
                     }
                     if (recommendedTemp !== null && !Number.isNaN(recommendedTemp)) {
                         item.recommendedTemp = recommendedTemp;
+                    }
+                    // 保存自定义赏味周期配置
+                    const customPeriods = getBeanCustomPeriodsFromForm();
+                    if (customPeriods && Object.keys(customPeriods).length > 0) {
+                        item.customRoastPeriods = customPeriods;
                     }
                 }
                 if (type === 'beans' || type === 'milks') {
@@ -4117,6 +4496,32 @@
                 if (recommendedTimeInput) recommendedTimeInput.value = item.recommendedTime || '';
                 if (recommendedYieldInput) recommendedYieldInput.value = item.recommendedYield || '';
                 if (recommendedTempInput) recommendedTempInput.value = item.recommendedTemp || '';
+                
+                // 填充自定义赏味周期配置
+                // 先重新渲染输入框（因为 showAssetFormModal 已经渲染了一次）
+                renderBeanCustomPeriodsInputs();
+                
+                if (item.customRoastPeriods) {
+                    const custom = item.customRoastPeriods;
+                    const agingEndInput = document.getElementById('bean-custom-养豆期-end');
+                    const declineStartInput = document.getElementById('bean-custom-赏味衰退期-start');
+                    const bestStartInput = document.getElementById('bean-custom-最佳赏味期-start');
+                    const bestEndInput = document.getElementById('bean-custom-最佳赏味期-end');
+
+                    if (agingEndInput && custom.养豆期) agingEndInput.value = custom.养豆期[1] === Infinity ? '' : custom.养豆期[1];
+                    if (declineStartInput && custom.赏味衰退期) declineStartInput.value = custom.赏味衰退期[0] === Infinity ? '' : custom.赏味衰退期[0];
+                    if (bestStartInput && custom.最佳赏味期) bestStartInput.value = custom.最佳赏味期[0] === Infinity ? '' : custom.最佳赏味期[0];
+                    if (bestEndInput && custom.最佳赏味期) bestEndInput.value = custom.最佳赏味期[1] === Infinity ? '' : custom.最佳赏味期[1];
+
+                    attachBeanPeriodAutoFill();
+                    // 如果有自定义配置，展开该区域
+                    const customPeriodsContent = document.getElementById('bean-custom-periods-content');
+                    const chevron = document.getElementById('bean-custom-periods-chevron');
+                    setBeanCustomEnabled(true);
+                    if (customPeriodsContent) {
+                        customPeriodsContent.classList.remove('hidden');
+                    }
+                }
             }
             
             // 所有资产类型都支持图片
@@ -4215,7 +4620,7 @@
                         <div class="flex items-center gap-1.5 mt-0.5 flex-wrap">
                             ${item.roast ? `<div class="text-[10px] font-bold text-white inline-block px-2 py-0.5 rounded-full" style="background-color: ${getRoastColor(item.roast)}">${item.roast}</div>` : ''}
                             ${type === 'beans' ? (() => {
-                                const stageInfo = getRoastStage(item.roast, roastDays);
+                                const stageInfo = getRoastStage(item.roast, roastDays, item.id);
                                 if (stageInfo && roastDays !== null) {
                                     return `<div class="text-[10px] font-bold text-white inline-block px-2 py-0.5 rounded-full" style="background-color: ${stageInfo.color}">${stageInfo.text}</div>`;
                                 }
@@ -4237,10 +4642,10 @@
                                 : '<div class="text-[10px] text-stone-600 mt-0.5">未填烘焙日期</div>';
                             
                             // 生命周期进度条
-                            const lifecycleProgress = roastDays !== null ? getLifecycleProgress(item.roast, roastDays) : null;
+                            const lifecycleProgress = roastDays !== null ? getLifecycleProgress(item.roast, roastDays, item.id) : null;
                             const progressBar = lifecycleProgress ? (() => {
                                 const isLastStage = lifecycleProgress.currentStage === '赏味衰退期';
-                                const stageInfo = getRoastStage(item.roast, roastDays);
+                                const stageInfo = getRoastStage(item.roast, roastDays, item.id);
                                 const stageText = stageInfo ? stageInfo.text : lifecycleProgress.currentStage;
                                 
                                 let timeInfo = '';
@@ -4315,7 +4720,8 @@
                                 'milks': [],
                                 'customTags': [],
                                 'deletedDefaultTags': [],
-                                'prefs': {}
+                                'prefs': {},
+                                'customRoastPeriods': null
                             };
                             
                             // 导入数据，缺失的字段使用默认值
@@ -4359,6 +4765,11 @@
             // 迁移2：如果旧备份没有 customTags，初始化为空数组
             if (DB.customTags === undefined || DB.customTags === null) {
                 DB.customTags = [];
+            }
+            
+            // 迁移2.5：如果旧备份没有 customRoastPeriods，初始化为 null
+            if (DB.customRoastPeriods === undefined) {
+                DB.customRoastPeriods = null;
             }
             
             // 迁移3：为旧版本的资产数据添加缺失的字段
@@ -4447,6 +4858,7 @@
             DB.customTags = [];
             DB.deletedDefaultTags = []; // 重置已删除的默认标签
             DB.prefs = {};
+            DB.customRoastPeriods = null; // 重置自定义赏味周期配置
             
             // 恢复默认数据
             // 计算7天前的日期作为示例烘焙日期
@@ -4702,6 +5114,233 @@ async function batchOptimizeImages() {
             renderIconsWithRetry();
     }
 }
+
+        /**
+         * 显示赏味周期配置弹窗
+         * @returns {void}
+         */
+        function showRoastPeriodsConfig() {
+            const modal = document.getElementById('roast-periods-config-modal');
+            const content = document.getElementById('roast-periods-config-content');
+            if (!modal || !content) return;
+
+            const periods = getRoastPeriods();
+            const roastTypes = ['浅烘', '中浅', '中烘', '中深', '深烘'];
+            let html = '<div class="space-y-4">';
+            
+            roastTypes.forEach(roastType => {
+                const period = periods[roastType];
+                if (!period) return;
+
+                const agingEndVal = period.养豆期?.[1] ?? '';
+                const bestStartVal = period.最佳赏味期?.[0] ?? '';
+                const bestEndVal = period.最佳赏味期?.[1] ?? '';
+                const declineStartVal = period.赏味衰退期?.[0] ?? '';
+                const tasteStartVal = period.养豆期?.[1] ?? '';
+                const tasteEndVal = period.赏味衰退期?.[0] ?? '';
+                
+                html += `<div class="bg-stone-800/50 rounded-lg p-3 border border-stone-700">
+                    <h4 class="text-xs font-bold text-stone-300 mb-3">${roastType}</h4>
+                    <div class="space-y-3">
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="text-[10px] text-stone-500 mb-1 block">养豆时间（天）</label>
+                                <input 
+                                    type="number" 
+                                    id="roast-${roastType}-养豆期-end" 
+                                    value="${agingEndVal === Infinity ? '' : agingEndVal}" 
+                                    min="0" 
+                                    step="1"
+                                    class="w-full bg-[#0a0a0a] border border-stone-800 rounded-lg px-2 py-1.5 text-xs text-white focus:outline-none focus:border-amber-600"
+                                    placeholder="结束天数"
+                                >
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="text-[10px] text-stone-500 mb-1 block">最佳赏味期开始</label>
+                                <input 
+                                    type="number" 
+                                    id="roast-${roastType}-最佳赏味期-start" 
+                                    value="${bestStartVal === Infinity ? '' : bestStartVal}" 
+                                    min="0" 
+                                    step="1"
+                                    class="w-full bg-[#0a0a0a] border border-stone-800 rounded-lg px-2 py-1.5 text-xs text-white focus:outline-none focus:border-amber-600"
+                                    placeholder="开始天数"
+                                >
+                            </div>
+                            <div>
+                                <label class="text-[10px] text-stone-500 mb-1 block">最佳赏味期结束</label>
+                                <input 
+                                    type="number" 
+                                    id="roast-${roastType}-最佳赏味期-end" 
+                                    value="${bestEndVal === Infinity ? '' : bestEndVal}" 
+                                    min="0" 
+                                    step="1"
+                                    class="w-full bg-[#0a0a0a] border border-stone-800 rounded-lg px-2 py-1.5 text-xs text-white focus:outline-none focus:border-amber-600"
+                                    placeholder="结束天数"
+                                >
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="text-[10px] text-stone-500 mb-1 block flex items-center gap-1">赏味期开始 (自动)</label>
+                                <div class="w-full text-xs text-amber-400 px-2 py-2 bg-stone-900/60 border border-stone-800 rounded-lg" id="roast-${roastType}-赏味期-start-text">${tasteStartVal}</div>
+                            </div>
+                            <div>
+                                <label class="text-[10px] text-stone-500 mb-1 block flex items-center gap-1">赏味期结束 (自动)</label>
+                                <div class="w-full text-xs text-amber-400 px-2 py-2 bg-stone-900/60 border border-stone-800 rounded-lg" id="roast-${roastType}-赏味期-end-text">${tasteEndVal}</div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="text-[10px] text-stone-500 mb-1 block">赏味衰退期开始</label>
+                                <input 
+                                    type="number" 
+                                    id="roast-${roastType}-赏味衰退期-start" 
+                                    value="${declineStartVal === Infinity ? '' : declineStartVal}" 
+                                    min="0" 
+                                    step="1"
+                                    class="w-full bg-[#0a0a0a] border border-stone-800 rounded-lg px-2 py-1.5 text-xs text-white focus:outline-none focus:border-amber-600"
+                                    placeholder="开始天数"
+                                >
+                            </div>
+                        </div>
+                    </div>`;
+                
+                html += `</div>`;
+            });
+            
+            html += `
+                <div class="flex gap-3 pt-2">
+                    <button onclick="resetRoastPeriodsConfig()" class="flex-1 px-4 py-2.5 rounded-xl text-xs font-bold bg-stone-800 border border-stone-700 text-stone-400 hover:bg-stone-700 transition-all active:scale-95">恢复默认</button>
+                    <button onclick="saveRoastPeriodsConfig()" class="flex-1 px-4 py-2.5 rounded-xl text-xs font-bold bg-amber-600 text-white hover:bg-amber-500 border border-amber-600 transition-all active:scale-95 shadow-lg shadow-amber-900/20">保存配置</button>
+                </div>
+            </div>`;
+            
+            content.innerHTML = html;
+            attachRoastPeriodAutoFill();
+            modal.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+            renderIconsWithRetry();
+        }
+
+        /**
+         * 隐藏赏味周期配置弹窗
+         * @returns {void}
+         */
+        function hideRoastPeriodsConfig() {
+            const modal = document.getElementById('roast-periods-config-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+            }
+        }
+
+        /**
+         * 绑定并自动填充赏味期衔接字段
+         * 规则：养豆期开始恒为0；赏味期起点=养豆期终点；赏味期终点=赏味衰退期起点；赏味衰退期终点恒为∞
+         * @returns {void}
+         */
+        function attachRoastPeriodAutoFill() {
+            const roastTypes = ['浅烘', '中浅', '中烘', '中深', '深烘'];
+            roastTypes.forEach(roastType => {
+                const agingStart = document.getElementById(`roast-${roastType}-养豆期-start`);
+                const agingEnd = document.getElementById(`roast-${roastType}-养豆期-end`);
+                const tasteStart = document.getElementById(`roast-${roastType}-赏味期-start`);
+                const tasteEnd = document.getElementById(`roast-${roastType}-赏味期-end`);
+                const tasteStartText = document.getElementById(`roast-${roastType}-赏味期-start-text`);
+                const tasteEndText = document.getElementById(`roast-${roastType}-赏味期-end-text`);
+                const declineStart = document.getElementById(`roast-${roastType}-赏味衰退期-start`);
+                const declineEnd = document.getElementById(`roast-${roastType}-赏味衰退期-end`);
+
+                const sync = () => {
+                    if (agingStart) agingStart.value = 0;
+                    if (declineEnd) declineEnd.value = '';
+
+                    const agingEndVal = agingEnd ? parseFloat(agingEnd.value) : NaN;
+                    const declineStartVal = declineStart ? parseFloat(declineStart.value) : NaN;
+
+                    if (tasteStart) tasteStart.value = Number.isFinite(agingEndVal) ? agingEndVal : '';
+                    if (tasteEnd) tasteEnd.value = Number.isFinite(declineStartVal) ? declineStartVal : '';
+                    if (tasteStartText) tasteStartText.textContent = Number.isFinite(agingEndVal) ? agingEndVal : '—';
+                    if (tasteEndText) tasteEndText.textContent = Number.isFinite(declineStartVal) ? declineStartVal : '—';
+                };
+
+                if (agingEnd) agingEnd.addEventListener('input', sync);
+                if (declineStart) declineStart.addEventListener('input', sync);
+
+                sync();
+            });
+        }
+
+        /**
+         * 保存赏味周期配置
+         * @returns {Promise<void>}
+         */
+        async function saveRoastPeriodsConfig() {
+            const periods = getRoastPeriods();
+            const roastTypes = ['浅烘', '中浅', '中烘', '中深', '深烘'];
+            const customPeriods = {};
+
+            roastTypes.forEach(roastType => {
+                const currentPeriod = periods[roastType] || ROAST_PERIODS[roastType];
+                if (!currentPeriod) return;
+
+                const agingEnd = getInputNumberOrFallback(`roast-${roastType}-养豆期-end`, currentPeriod.养豆期[1]);
+                const declineStart = getInputNumberOrFallback(`roast-${roastType}-赏味衰退期-start`, currentPeriod.赏味衰退期[0]);
+                const bestStart = getInputNumberOrFallback(`roast-${roastType}-最佳赏味期-start`, currentPeriod.最佳赏味期[0]);
+                const bestEnd = getInputNumberOrFallback(`roast-${roastType}-最佳赏味期-end`, currentPeriod.最佳赏味期[1]);
+
+                const computedPeriod = {
+                    养豆期: [0, agingEnd],
+                    最佳赏味期: [bestStart, bestEnd],
+                    赏味期: [agingEnd, declineStart],
+                    赏味衰退期: [declineStart, Infinity]
+                };
+
+                const defaultPeriod = ROAST_PERIODS[roastType];
+                const hasChanges = !defaultPeriod || ['养豆期', '最佳赏味期', '赏味期', '赏味衰退期'].some(stage => {
+                    const def = defaultPeriod[stage] || [];
+                    const cur = computedPeriod[stage] || [];
+                    return def[0] !== cur[0] || def[1] !== cur[1];
+                });
+
+                if (hasChanges) {
+                    customPeriods[roastType] = computedPeriod;
+                }
+            });
+
+            DB.customRoastPeriods = Object.keys(customPeriods).length > 0 ? customPeriods : null;
+
+            saveData();
+            hideRoastPeriodsConfig();
+            await showAlert("配置已保存！");
+            
+            // 刷新相关显示
+            renderGearList();
+            renderHistory();
+        }
+
+        /**
+         * 恢复默认赏味周期配置
+         * @returns {Promise<void>}
+         */
+        async function resetRoastPeriodsConfig() {
+            const confirmed = await showConfirm("确定要恢复默认配置吗？这将清除所有自定义设置。");
+            if (confirmed) {
+                DB.customRoastPeriods = null;
+                saveData();
+                hideRoastPeriodsConfig();
+                await showAlert("已恢复默认配置！");
+                
+                // 重新打开配置窗口显示默认值
+                setTimeout(() => {
+                    showRoastPeriodsConfig();
+                }, 300);
+            }
+        }
+
         init();
     </script>
 </body>
